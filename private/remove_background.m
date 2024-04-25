@@ -25,7 +25,7 @@ function removed_background=remove_background(images,method)
         if strcmp(method,'auto')
             s=size(images);
             s=[s 1];
-            if s(3)>=10;
+            if s(3)>=10
                 method='min';
             else
                 method='none';
@@ -45,7 +45,11 @@ function removed_background=remove_background(images,method)
                 background=mean(images,3);
             case 'enh'
                 disp('Enhancing...!')
-                removed_background = enhance_image(images); return 
+                removed_background = enhance_image(images); return
+            case 'sres'
+                disp('Super Resolution...!') 
+                images = turbozoom_image(images);
+                background=mean(images,3);
         end
       
         background=repmat(background,[1 1 size(images,3)]);
