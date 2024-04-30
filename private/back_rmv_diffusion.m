@@ -11,7 +11,7 @@ function preproc_bundle = back_rmv_diffusion(image_bundle)
     K=10; % Threshold parameter
     numIter=300; % No. of iterations
     %% radial kernel
-    parfor it = 1:n
+    for it = 1:n
         fprintf('Removing backgroung in img %d\n', it)
         current_image = squeeze(image_bundle(:,:,it));
         preproc_enhanced = anisotropic_diffusion_rmv(current_image, lambda, K, numIter);
