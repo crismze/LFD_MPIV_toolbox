@@ -24,7 +24,7 @@ function [img_pre, img_bck] = anisotropic_diffusion_rmv(img,lambda,K,numIter)
 %     from the original image                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Processing by anisotropic diffusion
-img = double(img);
+% img = double(img);
 [j,i,~]=size(img);
 img0=img; 
 imgTot=zeros(j,i,numIter); 
@@ -69,5 +69,5 @@ for t=2:numIter
 
 end
 
-img_pre = uint16(img0-imgNew);
-img_bck = uint16(imgNew);
+img_pre = (img0-imgNew);
+img_bck = (imgNew);

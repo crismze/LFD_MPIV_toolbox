@@ -45,7 +45,8 @@ function removed_background=remove_background(images,method)
                 background=mean(images,3);
             case 'enh'
                 disp('Enhancing...!')
-                removed_background = enhance_image(images); return;
+                images = enhance_image(images);
+                background = mean(images,3);
             case 'dif'
                 disp('Anisotropic Diffusion Background Removal...!')
                 removed_background = back_rmv_diffusion(images); return
