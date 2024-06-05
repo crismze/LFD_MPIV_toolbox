@@ -1,6 +1,6 @@
 function [images,image_size,nb_frames,number_of_images]=read_mraw(file_name,indices,verb,mode,msg,avg)
 
-  if nargin<3 
+    if nargin<3 
         verb=1; % set default
     end
     
@@ -23,7 +23,10 @@ function [images,image_size,nb_frames,number_of_images]=read_mraw(file_name,indi
     nb_frames=1;
     image_size=[mrawParam.Width mrawParam.Height];
     
-    
+    bitdepth = 16;
+    if isfield(mrawParam, 'bitdepth')
+        bitdepth = mrawParam.bitdepth;
+    end
     
     if nargin<2
         indices=1:number_of_images;
@@ -65,7 +68,7 @@ function [images,image_size,nb_frames,number_of_images]=read_mraw(file_name,indi
                 verb=0;
             end
          end
-         A=extractframe(fid,image_size);
+         A=extractframe(fid,image_size,bitdepth);
          if strcmp(mode,'normal') || i==1
             images(:,:,i)=A;
          end
@@ -104,8 +107,9 @@ function [images,image_size,nb_frames,number_of_images]=read_mraw(file_name,indi
      fclose(fid);
 end
      
-function A=extractframe(fid,image_size)
-    I=fread(fid,prod(image_size),'uint16');
+function A=extractframe(fid,image_size,bitdepth)
+    fmt = sprintf('ubit%d=>uint16', bitdepth)
+    I=fread(fid,prod(image_size),fmt,'b'); %%%%%%%!!!!
     A=reshape(I,image_size(1),image_size(2))';
 end
          
