@@ -108,8 +108,8 @@ function [images,image_size,nb_frames,number_of_images]=read_mraw(file_name,indi
 end
      
 function A=extractframe(fid,image_size,bitdepth)
-    fmt = sprintf('ubit%d=>uint16', bitdepth)
-    I=fread(fid,prod(image_size),fmt,'b'); %%%%%%%!!!!
+    fmt = sprintf('ubit%d=>uint16', bitdepth);
+    I=fread(fid,prod(image_size),fmt,'l'); %%%%%%%!!!!
     A=reshape(I,image_size(1),image_size(2))';
 end
          
